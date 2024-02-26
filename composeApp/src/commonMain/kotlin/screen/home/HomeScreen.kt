@@ -1,3 +1,7 @@
+package screen.home
+
+import HomeViewModel
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.gestures.rememberDraggableState
@@ -21,7 +25,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -36,21 +39,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
+import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import kotlinx.coroutines.launch
+import screen.details.DetailsScreen
 
-@Composable
-fun App() {
-    MaterialTheme {
-        AppContent(homeViewModel = HomeViewModel())
+class HomeScreen : Screen {
+
+    @Composable
+    override fun Content() {
+        val navigator = LocalNavigator.current
+        val bottomSheetNavigator = LocalBottomSheetNavigator.current
+        AppContent(
+            homeViewModel = HomeViewModel(),
+            navigator = navigator,
+            bottomSheetNavigator = bottomSheetNavigator
+        )
+
     }
+
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppContent(
-    homeViewModel: HomeViewModel
+    homeViewModel: HomeViewModel,
+    navigator: Navigator?,
+    bottomSheetNavigator: BottomSheetNavigator?
 ) {
     val products = homeViewModel.products.collectAsState()
 
@@ -107,7 +128,11 @@ fun AppContent(
                     Card(
                         modifier = Modifier
                             .padding(8.dp)
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .clickable {
+//                                navigator?.push(DetailsScreen(product))
+                                bottomSheetNavigator?.show(DetailsScreen(product = product))
+                            },
                         shape = RoundedCornerShape(15.dp),
                         elevation = 2.dp
                     ) {

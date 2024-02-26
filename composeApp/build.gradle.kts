@@ -91,6 +91,12 @@ kotlin {
             // kamel
             implementation(libs.kamel.image)
 
+            // voyager
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.tabNavigator)
+            implementation(libs.voyager.transitions)
+            implementation(libs.voyager.bottomSheetNavigator)
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
