@@ -17,19 +17,19 @@ imageLoader = "1.7.5"
 imageLoaderExtensionMokoResources = "1.7.5"
 junit = "4.13.2"
 kamelImage = "0.9.0"
-kotlin = "1.9.22"
+kotlin = "1.9.21"
 kotlinxCoroutinesCore = "1.8.0"
 kotlinxSerializationJson = "1.6.3"
 ktorClientCore = "2.3.7"
 mvvmCore = "0.16.1"
 
 [libraries]
-coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
-coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
-image-loader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "imageLoader" }
-image-loader-extension-blur = { module = "io.github.qdsfdhvh:image-loader-extension-blur", version.ref = "imageLoader" }
-image-loader-extension-imageio = { module = "io.github.qdsfdhvh:image-loader-extension-imageio", version.ref = "imageLoader" }
-image-loader-extension-moko-resources = { module = "io.github.qdsfdhvh:image-loader-extension-moko-resources", version.ref = "imageLoaderExtensionMokoResources" }
+#coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
+#coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
+#image-loader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "imageLoader" }
+#image-loader-extension-blur = { module = "io.github.qdsfdhvh:image-loader-extension-blur", version.ref = "imageLoader" }
+#image-loader-extension-imageio = { module = "io.github.qdsfdhvh:image-loader-extension-imageio", version.ref = "imageLoader" }
+#image-loader-extension-moko-resources = { module = "io.github.qdsfdhvh:image-loader-extension-moko-resources", version.ref = "imageLoaderExtensionMokoResources" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
@@ -44,6 +44,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+kotlinx-coroutines-core-js = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-js", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "ktorClientCore" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorClientCore" }

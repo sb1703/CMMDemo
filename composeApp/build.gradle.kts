@@ -1,6 +1,8 @@
-import org.gradle.internal.impldep.org.junit.experimental.categories.Categories.CategoryFilter.include
 import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnLockMismatchReport
+import org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -21,6 +23,19 @@ kotlin {
     }
     
     jvm("desktop")
+
+    // IR Compiler - Kotlin -> Byte Code -> JS
+    js(IR) {
+        moduleName = "KotlinProjectCmp"
+        browser {
+            // Tool bundler for converting Kotlin code to JS code
+            commonWebpackConfig() {
+                outputFileName = "KotlinProjectCmp.js"
+                devServer = (devServer ?: KotlinWebpackConfig.DevServer()).copy()
+            }
+            binaries.executable() // it will generate executable JS files
+        }
+    }
     
     listOf(
         iosX64(),
@@ -64,9 +79,9 @@ kotlin {
             implementation(libs.mvvm.core)
 
             // compose image loader
-            api(libs.image.loader)
-            api(libs.image.loader.extension.moko.resources)
-            api(libs.image.loader.extension.blur)
+//            api(libs.image.loader)
+//            api(libs.image.loader.extension.moko.resources)
+//            api(libs.image.loader.extension.blur)
 
             // coil 3
 //            implementation(libs.coil)
@@ -87,8 +102,11 @@ kotlin {
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
-        jvmMain.dependencies {
-            api(libs.image.loader.extension.imageio)
+//        jvmMain.dependencies {
+//            api(libs.image.loader.extension.imageio)
+//        }
+        jsMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core.js)
         }
     }
 }
@@ -137,6 +155,17 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+compose.experimental {
+    web.application {}
+}
+
+rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin::class.java) {
+    rootProject.the<YarnRootExtension>().yarnLockMismatchReport =
+        YarnLockMismatchReport.WARNING // NONE | FAIL
+    rootProject.the<YarnRootExtension>().reportNewYarnLock = false // true
+    rootProject.the<YarnRootExtension>().yarnLockAutoReplace = false // true
 }
 
 task("testClasses")
