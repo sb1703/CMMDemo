@@ -1,19 +1,30 @@
+import apiClient.httpClient
 import data.Product
+import database.datasource.ProductsLocalDataSource
+import database.datasource.ProductsRemoteDataSource
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import kotlinx.coroutines.flow.flow
 
 class HomeRepository(
-    private val httpClient: HttpClient
+    private val productsLocalDataSource: ProductsLocalDataSource,
+    private val productsRemoteDataSource: ProductsRemoteDataSource
 ) {
 
-    suspend fun getProductsApi(): List<Product> {
-        val response = httpClient.get("https://fakestoreapi.com/products")
-        return response.body()
+    suspend fun getAllProducts(forceReload: Boolean = false): List<Product> {
+        val cachedItems = productsLocalDataSource.getAllProducts()
+        return if(cachedItems.isNotEmpty() && !forceReload) {
+            cachedItems
+        } else {
+            productsRemoteDataSource.getAllProducts().also {
+                productsLocalDataSource.clearDb()
+                productsLocalDataSource.saveProducts(it)
+            }
+        }
     }
 
-    fun getProducts() = flow {
-        emit(getProductsApi())
+    fun getProducts(forceReload: Boolean = false) = flow {
+        emit(getAllProducts(forceReload))
     }
 }

@@ -11,6 +11,9 @@ plugins {
 
     // kotlinx serialization plugin
     kotlin("plugin.serialization") version "1.9.22"
+
+    // sqldelight
+    id("app.cash.sqldelight") version "2.0.1"
 }
 
 kotlin {
@@ -81,7 +84,7 @@ kotlin {
             // compose image loader
             api(libs.image.loader)
             api(libs.image.loader.extension.moko.resources)
-            api(libs.image.loader.extension.blur)
+//            api(libs.image.loader.extension.blur)
 
             // coil 3
 //            implementation(libs.coil)
@@ -104,6 +107,9 @@ kotlin {
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
+
+            // sqldelight
+            implementation(libs.sqlite.driver)
         }
 
         androidMain.dependencies {
@@ -111,15 +117,31 @@ kotlin {
 
             // koin android
             implementation(libs.koin.android)
+
+            // sqldelight
+            implementation(libs.android.driver)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
+
+            // sqldelight
+            implementation(libs.native.driver)
         }
         jvmMain.dependencies {
             api(libs.image.loader.extension.imageio)
         }
         jsMain.dependencies {
             implementation(libs.kotlinx.coroutines.core.js)
+
+            // SQL.js Web Worker
+            implementation(npm("@cashapp/sqldelight-sqljs-worker", "2.0.1"))
+            implementation(npm("sql.js", "1.8.0"))
+
+            // sqldelight
+            implementation(libs.web.worker.driver)
+            implementation(devNpm("copy-webpack-plugin", "9.1.0"))
+
+            implementation("com.squareup.sqldelight:sqljs-driver:1.5.3")
         }
     }
 }
@@ -174,6 +196,7 @@ compose.experimental {
     web.application {}
 }
 
+// web error
 rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin::class.java) {
     rootProject.the<YarnRootExtension>().yarnLockMismatchReport =
         YarnLockMismatchReport.WARNING // NONE | FAIL
@@ -182,3 +205,12 @@ rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlu
 }
 
 task("testClasses")
+
+sqldelight {
+    databases {
+        create("AppDatabase") {
+            packageName.set("org.example.project")
+            generateAsync.set(true)
+        }
+    }
+}
