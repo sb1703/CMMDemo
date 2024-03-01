@@ -79,9 +79,9 @@ kotlin {
             implementation(libs.mvvm.core)
 
             // compose image loader
-//            api(libs.image.loader)
-//            api(libs.image.loader.extension.moko.resources)
-//            api(libs.image.loader.extension.blur)
+            api(libs.image.loader)
+            api(libs.image.loader.extension.moko.resources)
+            api(libs.image.loader.extension.blur)
 
             // coil 3
 //            implementation(libs.coil)
@@ -97,6 +97,10 @@ kotlin {
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.bottomSheetNavigator)
 
+            // koin
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -104,13 +108,16 @@ kotlin {
 
         androidMain.dependencies {
             implementation(libs.ktor.client.android)
+
+            // koin android
+            implementation(libs.koin.android)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
         }
-//        jvmMain.dependencies {
-//            api(libs.image.loader.extension.imageio)
-//        }
+        jvmMain.dependencies {
+            api(libs.image.loader.extension.imageio)
+        }
         jsMain.dependencies {
             implementation(libs.kotlinx.coroutines.core.js)
         }

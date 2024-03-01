@@ -1,5 +1,5 @@
 [versions]
-agp = "8.2.2"
+agp = "8.3.0"
 android-compileSdk = "34"
 android-minSdk = "24"
 android-targetSdk = "34"
@@ -17,6 +17,7 @@ imageLoader = "1.7.5"
 imageLoaderExtensionMokoResources = "1.7.5"
 junit = "4.13.2"
 kamelImage = "0.9.0"
+koinCore = "3.6.0-alpha1"
 kotlin = "1.9.21"
 kotlinxCoroutinesCore = "1.8.0"
 kotlinxSerializationJson = "1.6.3"
@@ -25,13 +26,16 @@ mvvmCore = "0.16.1"
 voyager = "1.0.0"
 
 [libraries]
-#coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
-#coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
-#image-loader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "imageLoader" }
-#image-loader-extension-blur = { module = "io.github.qdsfdhvh:image-loader-extension-blur", version.ref = "imageLoader" }
-#image-loader-extension-imageio = { module = "io.github.qdsfdhvh:image-loader-extension-imageio", version.ref = "imageLoader" }
-#image-loader-extension-moko-resources = { module = "io.github.qdsfdhvh:image-loader-extension-moko-resources", version.ref = "imageLoaderExtensionMokoResources" }
+coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
+coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref = "coil" }
+image-loader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "imageLoader" }
+image-loader-extension-blur = { module = "io.github.qdsfdhvh:image-loader-extension-blur", version.ref = "imageLoader" }
+image-loader-extension-imageio = { module = "io.github.qdsfdhvh:image-loader-extension-imageio", version.ref = "imageLoader" }
+image-loader-extension-moko-resources = { module = "io.github.qdsfdhvh:image-loader-extension-moko-resources", version.ref = "imageLoaderExtensionMokoResources" }
 kamel-image = { module = "media.kamel:kamel-image", version.ref = "kamelImage" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCore" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koinCore" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

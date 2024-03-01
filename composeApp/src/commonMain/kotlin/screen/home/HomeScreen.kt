@@ -47,6 +47,8 @@ import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import kotlinx.coroutines.launch
+import org.koin.compose.KoinContext
+import org.koin.compose.koinInject
 import screen.details.DetailsScreen
 
 class HomeScreen : Screen {
@@ -55,11 +57,12 @@ class HomeScreen : Screen {
     override fun Content() {
         val navigator = LocalNavigator.current
         val bottomSheetNavigator = LocalBottomSheetNavigator.current
-        AppContent(
-            homeViewModel = HomeViewModel(),
-            navigator = navigator,
-            bottomSheetNavigator = bottomSheetNavigator
-        )
+        KoinContext {
+            AppContent(
+                navigator = navigator,
+                bottomSheetNavigator = bottomSheetNavigator
+            )
+        }
 
     }
 
@@ -69,7 +72,7 @@ class HomeScreen : Screen {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppContent(
-    homeViewModel: HomeViewModel,
+    homeViewModel: HomeViewModel = koinInject(),
     navigator: Navigator?,
     bottomSheetNavigator: BottomSheetNavigator?
 ) {
